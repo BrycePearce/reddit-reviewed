@@ -2,6 +2,5 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 
 const container = document.getElementById("app");
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container);
-root.render(<h2>Hello from React!</h2>);
+root.render(<h2 className="text-3xl font-bold underline">Hello from React!</h2>);
