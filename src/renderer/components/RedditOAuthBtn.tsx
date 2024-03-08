@@ -17,7 +17,7 @@ const RedditAuthButton = () => {
       console.log("OAuth:", value);
     };
 
-    // listen for oauth events
+    // Listen for oauth events
     window.electronAPI.onOauth(handleOauth);
 
     return () => {

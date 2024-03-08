@@ -26,7 +26,5 @@
  * ```
  */
 
-import './index.css';
-import './renderer/app';
-
-console.log('👋 This message is being logged by "renderer.ts", included via Vite');
+import './index.css'
+import './renderer/app'

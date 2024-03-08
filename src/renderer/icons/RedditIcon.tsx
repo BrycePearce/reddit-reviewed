@@ -1,7 +1,7 @@
-type Props = {
+interface Props {
   className?: string;
   styles?: React.CSSProperties;
-};
+}
 
 const RedditIcon = ({ className, styles }: Props) => (
   <svg
