@@ -1,9 +1,15 @@
 import { app, BrowserWindow, protocol } from 'electron'
 import path from 'path'
+
+import { exchangeAuthorizationCodeForToken } from './api/auth'
 import { applicationName, deeplinkUrl } from './constants/constants'
 
 const isAppReinstantiated = app.requestSingleInstanceLock()
 let mainWindow: BrowserWindow | null
+
+protocol.registerSchemesAsPrivileged([
+  { scheme: deeplinkUrl, privileges: { standard: true, secure: true, supportFetchAPI: true } }
+])
 
 if (require('electron-squirrel-startup')) {
   app.quit()
@@ -51,16 +57,23 @@ if (!isAppReinstantiated) {
     const protocolUrl = commandLine[commandLine.length - 1]
     if (protocolUrl) {
       const url = new URL(protocolUrl)
-      const oAuthToken = url.searchParams.get('code')
-      mainWindow?.webContents.send('oauth', oAuthToken)
+      const authorizationCode = url.searchParams.get('code');
+      if (!authorizationCode) throw new Error('No authorization code found');
+
+      // async IIFE so we can use await
+      (async () => {
+        try {
+          const tokenResponse = await exchangeAuthorizationCodeForToken(authorizationCode);
+          mainWindow?.webContents.send('oauth', tokenResponse);
+        } catch (error) {
+          console.error('Failed to exchange authorization code for token:', error);
+        }
+      })();
     }
   })
 
   app.whenReady().then(() => {
-    createWindow()
-    protocol.registerSchemesAsPrivileged([
-      { scheme: deeplinkUrl, privileges: { standard: true, secure: true, supportFetchAPI: true } }
-    ])
+    createWindow();
   })
 }
 

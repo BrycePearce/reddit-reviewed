@@ -2,13 +2,15 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import { contextBridge, ipcRenderer } from 'electron'
 
+import type { TokenResponse } from './types'
+
 contextBridge.exposeInMainWorld('electronAPI', {
-  onOauth(callback: (token: string) => void) {
-    ipcRenderer.on('oauth', (_event, token: string) => {
+  onOauth(callback: (token: TokenResponse) => void) {
+    ipcRenderer.on('oauth', (_event, token: TokenResponse) => {
       callback(token)
     })
   },
-  // Add a method to remove all listeners for the 'oauth' event.
+  // clear oauth after we load it, we'll only need the listener once
   clearOauthListeners() {
     ipcRenderer.removeAllListeners('oauth')
   }

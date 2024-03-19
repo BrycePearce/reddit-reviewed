@@ -1,3 +1,3 @@
-export const applicationName = 'redditSaved'
-export const deeplinkUrl = 'redditsaved'
-export const deeplinkUri = `${deeplinkUrl}://`
+export const applicationName = 'redditSaved';
+export const deeplinkUrl = 'redditsaved';
+export const deeplinkUri = `${deeplinkUrl}://`;

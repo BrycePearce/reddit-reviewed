@@ -1,14 +1,17 @@
 import RedditAuthButton from "./components/RedditOAuthBtn";
+import { useAuthentication } from "./hooks/useAuthentication";
 import useTheme from "./hooks/useTheme";
 
 const Root = () => {
   const { toggleTheme } = useTheme();
 
+  useAuthentication();
+
   return (
-    <div>
+    <>
       <button onClick={toggleTheme}>Toggle Theme</button>
       <RedditAuthButton />
-    </div>
+    </>
   );
 };
 
