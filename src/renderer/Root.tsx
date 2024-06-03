@@ -1,17 +1,17 @@
-import RedditAuthButton from "./components/RedditOAuthBtn";
-import { useAuthentication } from "./hooks/useAuthentication";
-import useTheme from "./hooks/useTheme";
+import RedditAuthButton from './components/RedditOAuthBtn';
+import { useAuthentication } from './hooks/useAuthentication';
+import useTheme from './hooks/useTheme';
 
 const Root = () => {
-  const { toggleTheme } = useTheme();
+  const { cycleTheme } = useTheme();
 
   useAuthentication();
 
   return (
-    <>
-      <button onClick={toggleTheme}>Toggle Theme</button>
+    <div className="">
+      <button onClick={cycleTheme}>Toggle Theme</button>
       <RedditAuthButton />
-    </>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 import { defineConfig, mergeConfig } from 'vite'
+
 import {
   getBuildConfig, getBuildDefine, external, pluginHotRestart
 } from './vite.base.config'
