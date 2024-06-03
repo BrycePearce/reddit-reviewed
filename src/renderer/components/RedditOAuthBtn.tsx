@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { CLIENT_ID, redditCallbackUrl } from "../clientConstants/constants";
-import RedditIcon from "../icons/RedditIcon";
+import { CLIENT_ID, redditCallbackUrl } from '../clientConstants/constants';
+import RedditIcon from '../icons/RedditIcon';
 
 const RedditAuthButton = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -12,10 +12,10 @@ const RedditAuthButton = () => {
     setIsAuthenticating(true);
     const redirectUri = encodeURIComponent(redditCallbackUrl);
     const state = crypto.randomUUID();
-    const scope = encodeURIComponent("identity history");
+    const scope = encodeURIComponent('identity history');
     const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=${state}&redirect_uri=${redirectUri}&scope=${scope}&duration=permanent`;
 
-    const newAuthWindow = window.open(authUrl, "_blank");
+    const newAuthWindow = window.open(authUrl, '_blank');
     setAuthWindow(newAuthWindow);
   };
 
@@ -39,15 +39,19 @@ const RedditAuthButton = () => {
     <button
       onClick={onSignin}
       disabled={isAuthenticating}
-      className="ml-2 text-white btn btn-primary btn-block"
+      className="text-white btn btn-primary btn-block"
       data-theme="reddit"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="z-10">
-        Sign in with
-      </div>
-      <RedditIcon className="h-6 -ml-2.5" backgroundClassName={`duration-250 ease-out ${isAuthenticating ? "fill-redditDisabledHidden" : (isHovered ? "fill-redditSecondary" : "fill-redditPrimary")}`} redditTextClassName={isAuthenticating ? "fill-redditDisabledOpaque" : "fill-white"} />
+      <div className="z-10">Sign in with</div>
+      <RedditIcon
+        className="h-6 -ml-2.5"
+        backgroundClassName={`duration-250 ease-out ${isAuthenticating ? 'fill-redditDisabledHidden' : isHovered ? 'fill-redditSecondary' : 'fill-redditPrimary'}`}
+        redditTextClassName={
+          isAuthenticating ? 'fill-redditDisabledOpaque' : 'fill-white'
+        }
+      />
     </button>
   );
 };

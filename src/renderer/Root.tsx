@@ -8,7 +8,7 @@ const Root = () => {
   useAuthentication();
 
   return (
-    <div className="">
+    <div className="p-6">
       <button onClick={cycleTheme}>Toggle Theme</button>
       <RedditAuthButton />
     </div>
