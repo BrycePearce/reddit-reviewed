@@ -1,3 +1,4 @@
+import React from 'react';
 interface Props {
   backgroundClassName?: string;
   className?: string;
@@ -5,7 +6,12 @@ interface Props {
   styles?: React.CSSProperties;
 }
 
-const RedditIcon = ({ backgroundClassName, className, redditTextClassName, styles }: Props) => (
+const RedditIcon = ({
+  backgroundClassName,
+  className,
+  redditTextClassName,
+  styles,
+}: Props) => (
   <svg
     className={className}
     style={styles}
@@ -130,7 +136,7 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
           r={63.05}
           style={{
             strokeWidth: 0,
-            fill: "url(#radial-gradient)",
+            fill: 'url(#radial-gradient)',
           }}
         />
         <circle
@@ -138,7 +144,7 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
           cy={188.55}
           r={63.05}
           style={{
-            fill: "url(#radial-gradient-2)",
+            fill: 'url(#radial-gradient-2)',
             strokeWidth: 0,
           }}
         />
@@ -148,7 +154,7 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
           rx={180}
           ry={135}
           style={{
-            fill: "url(#radial-gradient-3)",
+            fill: 'url(#radial-gradient-3)',
             strokeWidth: 0,
           }}
         />
@@ -159,14 +165,14 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
         <path
           d="M163.05 231.59c-.99 21.41-15.19 29.17-31.73 29.17s-29.15-11.63-28.16-33.03c.99-21.41 15.19-35.41 31.73-35.41s29.15 17.86 28.16 39.27Z"
           style={{
-            fill: "url(#radial-gradient-4)",
+            fill: 'url(#radial-gradient-4)',
             strokeWidth: 0,
           }}
         />
         <path
           d="M269.47 231.59c.99 21.41 15.19 29.17 31.73 29.17s29.15-11.63 28.16-33.03c-.99-21.41-15.19-35.41-31.73-35.41s-29.15 17.86-28.16 39.27Z"
           style={{
-            fill: "url(#radial-gradient-5)",
+            fill: 'url(#radial-gradient-5)',
             strokeWidth: 0,
           }}
         />
@@ -175,7 +181,7 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
         <path
           d="M216.26 276.02c-22.32 0-43.71 1.08-63.49 3.04-3.38.34-5.52 3.78-4.21 6.86 11.08 25.97 37.22 44.21 67.7 44.21s56.62-18.24 67.7-44.21c1.31-3.08-.83-6.52-4.21-6.86-19.78-1.97-41.17-3.04-63.49-3.04Z"
           style={{
-            fill: "#bbcfda",
+            fill: '#bbcfda',
             strokeWidth: 0,
           }}
         />
@@ -186,7 +192,7 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
         <path
           d="M216.26 278.4c-21.9 0-42.89 1.08-62.3 3.04-3.32.34-5.42 3.78-4.13 6.86 10.87 25.97 36.52 44.21 66.44 44.21s55.56-18.24 66.44-44.21c1.29-3.08-.81-6.52-4.13-6.86-19.41-1.97-40.4-3.04-62.31-3.04Z"
           style={{
-            fill: "url(#radial-gradient-6)",
+            fill: 'url(#radial-gradient-6)',
             strokeWidth: 0,
           }}
         />
@@ -195,24 +201,22 @@ const RedditIcon = ({ backgroundClassName, className, redditTextClassName, style
           cy={44.68}
           r={44.68}
           style={{
-            fill: "url(#radial-gradient-7)",
+            fill: 'url(#radial-gradient-7)',
             strokeWidth: 0,
           }}
         />
         <path
           d="M215.62 113.41c-5.35 0-9.69-2.24-9.69-5.69 0-40.03 32.56-72.59 72.59-72.59 5.35 0 9.69 4.34 9.69 9.69s-4.34 9.69-9.69 9.69c-29.34 0-53.22 23.87-53.22 53.22 0 3.45-4.34 5.69-9.69 5.69Z"
           style={{
-            fill: "url(#radial-gradient-8)",
+            fill: 'url(#radial-gradient-8)',
             strokeWidth: 0,
           }}
         />
-        <path
-          d="M151.29 242.18c0 8.28-8.81 12-19.69 12s-19.69-3.72-19.69-12 8.81-15 19.69-15 19.69 6.72 19.69 15ZM320.6 242.18c0 8.28-8.81 12-19.69 12s-19.69-3.72-19.69-12 8.81-15 19.69-15 19.69 6.72 19.69 15Z"
-        />
+        <path d="M151.29 242.18c0 8.28-8.81 12-19.69 12s-19.69-3.72-19.69-12 8.81-15 19.69-15 19.69 6.72 19.69 15ZM320.6 242.18c0 8.28-8.81 12-19.69 12s-19.69-3.72-19.69-12 8.81-15 19.69-15 19.69 6.72 19.69 15Z" />
       </symbol>
       <style>
         {
-          ".cls-11,.cls-12,.cls-13,.cls-14,.cls-9{stroke-width:0}.cls-9{fill:#842123}.cls-11{fill:#ff6101}.cls-12{fill:#fff}.cls-14{fill:#ffc49c}"
+          '.cls-11,.cls-12,.cls-13,.cls-14,.cls-9{stroke-width:0}.cls-9{fill:#842123}.cls-11{fill:#ff6101}.cls-12{fill:#fff}.cls-14{fill:#ffc49c}'
         }
       </style>
     </defs>

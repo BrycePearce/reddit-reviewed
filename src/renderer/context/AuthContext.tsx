@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from 'react';
+import React from 'react';
 
-import type { TokenResponse } from "src/types";
+import type { TokenResponse } from 'src/types';
 
 type AuthContextType = {
   authState: TokenResponse;
@@ -10,11 +11,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authState, setAuthState] = useState<TokenResponse>({
-    access_token: "",
-    expires_in: "",
-    refresh_token: "",
-    scope: "",
-    token_type: "",
+    access_token: '',
+    expires_in: '',
+    refresh_token: '',
+    scope: '',
+    token_type: '',
   });
 
   return (
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth not within an AuthProvider");
+    throw new Error('useAuth not within an AuthProvider');
   }
 
   return context;

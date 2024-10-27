@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import React from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
-import { useAuth } from "../context/AuthContext";
-
-import type { TokenResponse } from "src/types";
+import type { TokenResponse } from 'src/types';
 
 export const useAuthentication = () => {
   const { setAuthState } = useAuth();

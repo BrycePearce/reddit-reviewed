@@ -1,3 +1,4 @@
+import React from 'react';
 import RedditAuthButton from './components/RedditOAuthBtn';
 import { useAuthentication } from './hooks/useAuthentication';
 import useTheme from './hooks/useTheme';

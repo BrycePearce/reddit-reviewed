@@ -1,5 +1,6 @@
 import { app, BrowserWindow, protocol } from 'electron'
 import path from 'path'
+import started from 'electron-squirrel-startup';
 
 import { exchangeAuthorizationCodeForToken } from './api/auth'
 import { applicationName, deeplinkUrl } from './constants/constants'
@@ -11,7 +12,7 @@ protocol.registerSchemesAsPrivileged([
   { scheme: deeplinkUrl, privileges: { standard: true, secure: true, supportFetchAPI: true } }
 ])
 
-if (require('electron-squirrel-startup')) {
+if (started) {
   app.quit()
 }
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { CLIENT_ID, redditCallbackUrl } from '../clientConstants/constants';
 import RedditIcon from '../icons/RedditIcon';
+import React from 'react';
 
 const RedditAuthButton = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
