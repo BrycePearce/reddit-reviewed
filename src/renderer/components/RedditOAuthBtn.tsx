@@ -40,7 +40,7 @@ const RedditAuthButton = () => {
     <button
       onClick={onSignin}
       disabled={isAuthenticating}
-      className="text-white btn btn-primary btn-block"
+      className="h-full text-white btn btn-primary btn-block"
       data-theme="reddit"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -49,9 +49,6 @@ const RedditAuthButton = () => {
       <RedditIcon
         className="h-6 -ml-2.5"
         backgroundClassName={`duration-250 ease-out ${isAuthenticating ? 'fill-redditDisabledHidden' : isHovered ? 'fill-redditSecondary' : 'fill-redditPrimary'}`}
-        redditTextClassName={
-          isAuthenticating ? 'fill-redditDisabledOpaque' : 'fill-white'
-        }
       />
     </button>
   );
