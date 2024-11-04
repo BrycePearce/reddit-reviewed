@@ -1,13 +1,14 @@
-import { app, BrowserWindow, protocol } from 'electron'
+import { app, BrowserWindow, ipcMain, protocol } from 'electron'
 import path from 'path'
 import started from 'electron-squirrel-startup';
+import Store from 'electron-store';
 
 import { exchangeAuthorizationCodeForToken } from './api/auth'
 import { applicationName, deeplinkUrl } from './constants/constants'
 
+const store = new Store();
 const isAppReinstantiated = app.requestSingleInstanceLock()
 let mainWindow: BrowserWindow | null
-
 protocol.registerSchemesAsPrivileged([
   { scheme: deeplinkUrl, privileges: { standard: true, secure: true, supportFetchAPI: true } }
 ])
@@ -97,3 +98,17 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+// todo: implement this so it saves the token after closing, integrate checking it in react code (may need to be converted to module)
+// handle token storage
+ipcMain.handle('save-auth-token', (event, token) => {
+  store.set('authToken', token);
+});
+
+ipcMain.handle('get-auth-token', (event) => {
+  return store.get('authToken');
+});
+
+ipcMain.handle('delete-auth-token', (event) => {
+  store.delete('authToken');
+});

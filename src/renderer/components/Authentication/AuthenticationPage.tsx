@@ -7,7 +7,6 @@ import { redditCallbackUrl, CLIENT_ID } from '../../clientConstants/constants';
 export const AuthenticationPage = () => {
   const { isAuthenticating, setIsAuthenticating } = useAuthListener();
   const [authWindow, setAuthWindow] = useState<Window | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const onSignin = () => {
     setIsAuthenticating(true);
@@ -37,12 +36,7 @@ export const AuthenticationPage = () => {
   }, [authWindow]);
 
   return (
-    <RedditAuthButton
-      onClick={onSignin}
-      isAuthenticating={isAuthenticating}
-      isHovered={isHovered}
-      setIsHovered={setIsHovered}
-    />
+    <RedditAuthButton onClick={onSignin} isAuthenticating={isAuthenticating} />
   );
 };
 

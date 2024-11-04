@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RedditIcon from '../../icons/RedditIcon';
 
 type RedditAuthButtonProps = {
   isAuthenticating: boolean;
-  isHovered: boolean;
   onClick: () => void;
-  setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const RedditAuthButton = ({
   onClick,
   isAuthenticating,
-  isHovered,
-  setIsHovered,
 }: RedditAuthButtonProps) => {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <button
       onClick={onClick}
