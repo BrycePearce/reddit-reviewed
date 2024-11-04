@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import RedditAuthButton from './RedditOAuthBtn';
 
-import { CLIENT_ID, redditCallbackUrl } from '../clientConstants/constants';
-import RedditIcon from '../icons/RedditIcon';
-import React from 'react';
+import { useAuthListener } from '../../hooks/useAuthListener';
+import { redditCallbackUrl, CLIENT_ID } from '../../clientConstants/constants';
 
-const RedditAuthButton = () => {
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+export const AuthenticationPage = () => {
+  const { isAuthenticating, setIsAuthenticating } = useAuthListener();
   const [authWindow, setAuthWindow] = useState<Window | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -37,21 +37,13 @@ const RedditAuthButton = () => {
   }, [authWindow]);
 
   return (
-    <button
+    <RedditAuthButton
       onClick={onSignin}
-      disabled={isAuthenticating}
-      className="h-full text-white btn btn-primary btn-block"
-      data-theme="reddit"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="z-10">Sign in with</div>
-      <RedditIcon
-        className="h-6 -ml-2.5"
-        backgroundClassName={`duration-250 ease-out ${isAuthenticating ? 'fill-redditDisabledHidden' : isHovered ? 'fill-redditSecondary' : 'fill-redditPrimary'}`}
-      />
-    </button>
+      isAuthenticating={isAuthenticating}
+      isHovered={isHovered}
+      setIsHovered={setIsHovered}
+    />
   );
 };
 
-export default RedditAuthButton;
+export default AuthenticationPage;

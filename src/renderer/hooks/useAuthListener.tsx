@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 import type { TokenResponse } from 'src/types';
 
-export const useAuthentication = () => {
+// handles oAuth authentication events and loads them into useAuth context
+export const useAuthListener = () => {
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const { setAuthState } = useAuth();
 
   useEffect(() => {
@@ -19,4 +21,6 @@ export const useAuthentication = () => {
       window.electronAPI.clearOauthListeners();
     };
   }, [setAuthState]);
+
+  return { isAuthenticating, setIsAuthenticating };
 };
