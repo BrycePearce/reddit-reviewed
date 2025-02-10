@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import RedditAuthButton from './RedditOAuthBtn';
 
 import { useAuthListener } from '../../hooks/useAuthListener';
-import { redditCallbackUrl, CLIENT_ID } from '../../clientConstants/constants';
+import { loadOauthUrl } from '../../utils/utils';
+
 import snooLogin from '../../assets/images/snoo-login.png';
 
 export const AuthenticationPage = () => {
@@ -11,10 +12,7 @@ export const AuthenticationPage = () => {
 
   const onSignin = () => {
     setIsAuthenticating(true);
-    const redirectUri = encodeURIComponent(redditCallbackUrl);
-    const state = crypto.randomUUID();
-    const scope = encodeURIComponent('identity history');
-    const authUrl = `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=${state}&redirect_uri=${redirectUri}&scope=${scope}&duration=permanent`;
+    const authUrl = loadOauthUrl();
 
     const newAuthWindow = window.open(authUrl, '_blank');
     setAuthWindow(newAuthWindow);

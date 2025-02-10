@@ -1,24 +1,23 @@
-import ky from "ky";
+import ky from 'ky';
 
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from '../context/AuthContext';
 
-import type { Options } from "ky";
-import type { TokenResponse } from "src/types";
+import type { Options } from 'ky';
+import type { TokenResponse } from 'src/types';
 
 export const useKyApi = () => {
   const { authState, setAuthState } = useAuth();
-
   const refreshAuthToken = async () => {
     try {
       const refreshedTokens: TokenResponse = await ky
-        .post("https://www.reddit.com/api/v1/access_token", {
+        .post('https://www.reddit.com/api/v1/access_token', {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            'Content-Type': 'application/x-www-form-urlencoded',
             // Basic Auth header. Client ID and Client Secret should be part of your environment variables or config
-            Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString("base64")}`,
+            Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
           },
           body: new URLSearchParams({
-            grant_type: "refresh_token",
+            grant_type: 'refresh_token',
             refresh_token: authState.refresh_token,
           }).toString(),
         })
@@ -33,7 +32,7 @@ export const useKyApi = () => {
 
       return refreshedTokens.access_token;
     } catch (error) {
-      console.error("Failed to refresh token:", error);
+      console.error('Failed to refresh token:', error);
       throw error; // Consider how you want to handle failures here. You might want to clear authState and redirect to login.
     }
   };
@@ -60,7 +59,7 @@ export const useKyApi = () => {
           },
         }).json();
       } else {
-        console.error("API call failed:", error);
+        console.error('API call failed:', error);
         throw error;
       }
     }
