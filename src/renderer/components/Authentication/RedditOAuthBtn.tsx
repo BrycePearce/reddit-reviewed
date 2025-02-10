@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import RedditIcon from '../../icons/RedditIcon';
 
 type RedditAuthButtonProps = {
+  className?: string;
   isAuthenticating: boolean;
   onClick: () => void;
 };
 
 const RedditAuthButton = ({
+  className = '',
   onClick,
   isAuthenticating,
 }: RedditAuthButtonProps) => {
@@ -15,7 +17,7 @@ const RedditAuthButton = ({
     <button
       onClick={onClick}
       disabled={isAuthenticating}
-      className="h-full text-white btn btn-primary btn-block"
+      className={`text-white btn btn-primary ${className}`}
       data-theme="reddit"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

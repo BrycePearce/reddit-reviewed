@@ -7,21 +7,26 @@ const Root = () => {
   const { cycleTheme } = useTheme();
   const { isAuthenticated } = useAuth();
 
-  if (!isAuthenticated)
+  if (!isAuthenticated) {
     return (
-      <div className="p-6">
+      <main className="flex items-center justify-center w-screen h-screen">
         <AuthenticationPage />
-      </div>
+      </main>
     );
+  }
 
   return (
-    <div className="p-6">
+    <main className="p-6">
       <div>
-        meow meow hello!
         <button onClick={cycleTheme}>Toggle Theme</button>
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Scooby-Doo.png/150px-Scooby-Doo.png" />
+        <div className="box-border relative overflow-hidden rounded-full w-36 h-36">
+          <img
+            className="absolute w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Scooby-Doo.png/150px-Scooby-Doo.png"
+          />
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -3,6 +3,7 @@ import RedditAuthButton from './RedditOAuthBtn';
 
 import { useAuthListener } from '../../hooks/useAuthListener';
 import { redditCallbackUrl, CLIENT_ID } from '../../clientConstants/constants';
+import snooLogin from '../../assets/images/snoo-login.png';
 
 export const AuthenticationPage = () => {
   const { isAuthenticating, setIsAuthenticating } = useAuthListener();
@@ -36,7 +37,20 @@ export const AuthenticationPage = () => {
   }, [authWindow]);
 
   return (
-    <RedditAuthButton onClick={onSignin} isAuthenticating={isAuthenticating} />
+    <main className="flex flex-col items-center justify-center w-full gap-6">
+      <div className="box-border relative overflow-hidden rounded-full w-36 h-36">
+        <img
+          className="absolute w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+          src={snooLogin}
+          alt="Reddit Snoo Login"
+        />
+      </div>
+      <RedditAuthButton
+        className="w-72"
+        onClick={onSignin}
+        isAuthenticating={isAuthenticating}
+      />
+    </main>
   );
 };
 
