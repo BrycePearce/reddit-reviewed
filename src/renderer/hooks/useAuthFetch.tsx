@@ -1,12 +1,13 @@
 import ky from 'ky';
-
 import { useAuth } from '../context/AuthContext';
 
 import type { Options } from 'ky';
 import type { TokenResponse } from 'src/types';
 
-export const useKyApi = () => {
-  const { authState, setAuthState } = useAuth();
+// wraps ky with Reddit auth token refresh
+export const useAuthFetch = () => {
+  const { authState, setAuthState, logout } = useAuth();
+
   const refreshAuthToken = async () => {
     try {
       const refreshedTokens: TokenResponse = await ky
@@ -26,18 +27,18 @@ export const useKyApi = () => {
       setAuthState({
         ...authState,
         access_token: refreshedTokens.access_token,
-        // Update other parts of authState as necessary
-        refresh_token: refreshedTokens.refresh_token || authState.refresh_token, // Some APIs might not return a new refresh token
+        refresh_token: refreshedTokens.refresh_token || authState.refresh_token,
       });
 
       return refreshedTokens.access_token;
     } catch (error) {
-      console.error('Failed to refresh token:', error);
-      throw error; // Consider how you want to handle failures here. You might want to clear authState and redirect to login.
+      console.error('Failed to refresh token. Logging out.\n\n', error);
+      logout();
+      throw error;
     }
   };
 
-  const fetchData = async (url: string, options: Options = {}) => {
+  const authenticatedFetch = async (url: string, options: Options = {}) => {
     try {
       return await ky(url, {
         ...options,
@@ -48,9 +49,7 @@ export const useKyApi = () => {
       }).json();
     } catch (error) {
       if (error.response?.status === 401) {
-        // Token expired, try to refresh it
         const newAccessToken = await refreshAuthToken();
-        // Retry the request with the new token
         return await ky(url, {
           ...options,
           headers: {
@@ -58,12 +57,10 @@ export const useKyApi = () => {
             Authorization: `Bearer ${newAccessToken}`,
           },
         }).json();
-      } else {
-        console.error('API call failed:', error);
-        throw error;
       }
+      throw error;
     }
   };
 
-  return { fetchData };
+  return { authenticatedFetch };
 };

@@ -35,12 +35,12 @@ export const AuthenticationPage = () => {
   }, [authWindow]);
 
   return (
-    <main className="flex flex-col items-center justify-center w-full gap-6">
+    <main className="flex flex-col items-center justify-center w-screen h-screen gap-6">
       <div className="box-border relative overflow-hidden rounded-full w-36 h-36">
         <img
           className="absolute w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           src={snooLogin}
-          alt="Reddit Snoo Login"
+          alt=""
         />
       </div>
       <RedditAuthButton
