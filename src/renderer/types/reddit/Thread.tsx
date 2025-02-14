@@ -1,4 +1,4 @@
-export type RedditPost = {
+export type RedditThread = {
   subreddit_id: string;
   approved_at_utc: any;
   author_is_blocked: boolean;

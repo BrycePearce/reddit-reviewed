@@ -1,8 +1,17 @@
 import React from 'react';
-import { useSavedPosts } from '../hooks/queries/useSavedPosts';
+import { useRandomPost } from '../hooks/useRandomPost';
 
 export const ListPosts = () => {
-  const { savedPosts, isLoading } = useSavedPosts();
+  const { currentPost, isLoading } = useRandomPost();
+  console.log('currentPost', currentPost);
+  //  switch (item.kind) {
+  //    case RedditKind.Post: // t3
+  //      return <PostCard post={item.data} />;
+  //    case RedditKind.Comment: // t1
+  //      return <CommentCard comment={item.data} />;
+  //    default:
+  //      return null; // or fallback
+  //  }
 
   if (isLoading)
     return (
@@ -23,7 +32,7 @@ export const ListPosts = () => {
   return (
     <div>
       <div className="grid w-32 h-20 rounded bg-primary text-primary-content place-content-center">
-        1
+        {currentPost.data.link_title}
       </div>
       <div className="grid w-32 h-20 rounded bg-accent text-accent-content place-content-center">
         2

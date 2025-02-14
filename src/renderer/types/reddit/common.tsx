@@ -1,20 +1,30 @@
-import type { RedditPost } from './post';
+import type { RedditComment } from './Comment';
+import type { RedditThread } from './Thread';
 
-export type Root = {
+export enum RedditPostTypes {
+  Comment = 't1',
+  User = 't2',
+  Post = 't3', // I could rename this to RedditInteractionTypes, but post is more clear so I'll deal with the double post name weirdness
+  Message = 't4',
+  Subreddit = 't5',
+  Award = 't6',
+}
+
+export type RedditPostResponse = {
   kind: 'Listing';
   data: ResponseMetadata;
 };
 
 export type ResponseMetadata = {
-  after: string;
-  before: any;
-  children: Children[];
+  after: string | null; // next page of data
+  before: string | null; // previous
+  children: Post[]; // interactions (threads/comments)
   dist: number;
   geo_filter: string;
-  modhash: any;
+  modhash: string;
 };
 
-export type Children = {
-  kind: string;
-  data: RedditPost[];
+export type Post = {
+  kind: RedditPostTypes;
+  data: RedditThread | RedditComment;
 };

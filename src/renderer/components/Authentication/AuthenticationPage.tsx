@@ -35,19 +35,21 @@ export const AuthenticationPage = () => {
   }, [authWindow]);
 
   return (
-    <main className="flex flex-col items-center justify-center w-screen h-screen gap-6">
-      <div className="box-border relative overflow-hidden rounded-full w-36 h-36">
-        <img
-          className="absolute w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          src={snooLogin}
-          alt=""
+    <main className="flex items-center justify-center w-screen h-screen">
+      <div className="flex flex-col items-center gap-6 p-12">
+        <div className="box-border relative overflow-hidden rounded-full w-36 h-36">
+          <img
+            className="absolute w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+            src={snooLogin}
+            alt=""
+          />
+        </div>
+        <RedditAuthButton
+          className="w-72"
+          onClick={onSignin}
+          isAuthenticating={isAuthenticating}
         />
       </div>
-      <RedditAuthButton
-        className="w-72"
-        onClick={onSignin}
-        isAuthenticating={isAuthenticating}
-      />
     </main>
   );
 };

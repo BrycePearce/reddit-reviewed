@@ -14,8 +14,9 @@ export const useAuthFetch = () => {
         .post('https://www.reddit.com/api/v1/access_token', {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            // Basic Auth header. Client ID and Client Secret should be part of your environment variables or config
-            Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+            Authorization: `Basic ${Buffer.from(
+              `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
+            ).toString('base64')}`,
           },
           body: new URLSearchParams({
             grant_type: 'refresh_token',
@@ -38,7 +39,10 @@ export const useAuthFetch = () => {
     }
   };
 
-  const authenticatedFetch = async (url: string, options: Options = {}) => {
+  const authenticatedFetch = async <T = unknown,>(
+    url: string,
+    options: Options = {}
+  ): Promise<T> => {
     try {
       return await ky(url, {
         ...options,
@@ -46,9 +50,10 @@ export const useAuthFetch = () => {
           ...options.headers,
           Authorization: `Bearer ${authState.access_token}`,
         },
-      }).json();
-    } catch (error) {
-      if (error.response?.status === 401) {
+      }).json<T>();
+    } catch (error: any) {
+      // If the request is unauthorized (401), try refreshing the token
+      if (error?.response?.status === 401) {
         const newAccessToken = await refreshAuthToken();
         return await ky(url, {
           ...options,
@@ -56,7 +61,7 @@ export const useAuthFetch = () => {
             ...options.headers,
             Authorization: `Bearer ${newAccessToken}`,
           },
-        }).json();
+        }).json<T>();
       }
       throw error;
     }

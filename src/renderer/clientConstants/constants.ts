@@ -3,5 +3,5 @@ export const redditCallbackUrl = "redditSaved://callback"
 
 export const queryKeys = {
     userInfo: 'userInfo',
-    savedPosts: 'savedPosts',
+    savedPosts: (userToken?: string) => ['savedPosts', userToken],
 }
