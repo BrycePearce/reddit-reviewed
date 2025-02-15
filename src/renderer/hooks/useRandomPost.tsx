@@ -1,5 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
 import { useSavedPosts } from './queries/useSavedPosts';
+
 import type { Post } from '../types/reddit/Common';
 
 export const useRandomPost = () => {
@@ -8,25 +10,23 @@ export const useRandomPost = () => {
 
   const randomizePost = useCallback(() => {
     if (!savedPosts?.pages) return;
-
-    // load all pages into a single list
     const allPosts = savedPosts.pages.flatMap((page) => page.data.children);
     if (!allPosts.length) return;
-
     const randomIndex = Math.floor(Math.random() * allPosts.length);
     setCurrentPost(allPosts[randomIndex]);
   }, [savedPosts]);
 
+  // seed random post when saved posts are loaded
   useEffect(() => {
-    if (!isLoading && savedPosts?.pages) {
+    if (!currentPost && savedPosts?.pages && !isLoading) {
       randomizePost();
     }
-  }, [isLoading, savedPosts, randomizePost]);
+  }, [currentPost, savedPosts?.pages, isLoading, randomizePost]);
 
   return {
     currentPost,
     randomizePost,
-    isLoading: !isError && (isLoading || !currentPost), // Stop loading state if there's an error
+    isLoading: !isError && (isLoading || !currentPost),
     isError,
   };
 };

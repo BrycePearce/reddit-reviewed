@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRandomPost } from '../hooks/useRandomPost';
 
 export const ListPosts = () => {

@@ -1,7 +1,6 @@
-import React from 'react';
-import useTheme from './hooks/useTheme';
-import { ListPosts } from './components/ListPosts';
 import { AuthenticationWrapper } from './components/Authentication/AuthenticationWrapper';
+import { ListPosts } from './components/ListPosts';
+import useTheme from './hooks/useTheme';
 
 const Root = () => {
   const { cycleTheme } = useTheme();
