@@ -24,7 +24,12 @@ export type ResponseMetadata = {
   modhash: string;
 };
 
-export type Post = {
-  kind: RedditPostTypes;
-  data: RedditThread | RedditComment;
-};
+export type Post =
+  | {
+      kind: RedditPostTypes.Post;
+      data: RedditThread;
+    }
+  | {
+      kind: RedditPostTypes.Comment;
+      data: RedditComment;
+    };

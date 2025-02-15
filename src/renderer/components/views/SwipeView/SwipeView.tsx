@@ -1,6 +1,9 @@
+import SwipeComment from './SwipeComment';
+import SwipeThread from './SwipeThread';
 import { useRandomPost } from '../../../hooks/useRandomPost';
+import { RedditPostTypes } from '../../../types/reddit/Common';
 
-export const ListPosts = () => {
+export const SwipeView = () => {
   const { currentPost, isLoading } = useRandomPost();
   //  switch (item.kind) {
   //    case RedditKind.Post: // t3
@@ -11,7 +14,7 @@ export const ListPosts = () => {
   //      return null; // or fallback
   //  }
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div>
         <div className="flex flex-col gap-4 w-52">
@@ -26,6 +29,22 @@ export const ListPosts = () => {
         </div>
       </div>
     );
+  }
 
-  return <div>{currentPost.data.link_title}</div>;
+  console.log('SwipeView render:', {
+    currentPost,
+    kind: currentPost?.kind,
+  });
+
+  if (currentPost.kind === RedditPostTypes.Post) {
+    return <SwipeThread key={currentPost.data.id} post={currentPost} />;
+  }
+
+  if (currentPost.kind === RedditPostTypes.Comment) {
+    return <SwipeComment key={currentPost.data.id} post={currentPost} />;
+  }
+
+  return (
+    <div>Boy howdy somethin went wrong I tell ya a somethin went wrong</div>
+  );
 };

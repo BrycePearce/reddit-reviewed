@@ -14,8 +14,6 @@ const getInitialTheme = () => {
 const loadNewTheme = (prevTheme: string) => {
   switch (prevTheme) {
     case 'dark':
-      return 'darker';
-    case 'darker':
       return 'sunset';
     case 'sunset':
       return 'light';
