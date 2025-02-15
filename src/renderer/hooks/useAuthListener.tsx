@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
+
 import { useQueryClient } from '@tanstack/react-query';
+
 import { queryKeys } from '../clientConstants/constants';
+import { useAuth } from '../context/AuthContext';
 
 import type { TokenResponse } from 'src/types';
 

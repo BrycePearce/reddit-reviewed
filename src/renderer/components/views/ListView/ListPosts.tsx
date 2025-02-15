@@ -1,8 +1,7 @@
-import { useRandomPost } from '../hooks/useRandomPost';
+import { useRandomPost } from '../../../hooks/useRandomPost';
 
 export const ListPosts = () => {
   const { currentPost, isLoading } = useRandomPost();
-  console.log('currentPost', currentPost);
   //  switch (item.kind) {
   //    case RedditKind.Post: // t3
   //      return <PostCard post={item.data} />;
@@ -28,17 +27,5 @@ export const ListPosts = () => {
       </div>
     );
 
-  return (
-    <div>
-      <div className="grid w-32 h-20 rounded bg-primary text-primary-content place-content-center">
-        {currentPost.data.link_title}
-      </div>
-      <div className="grid w-32 h-20 rounded bg-accent text-accent-content place-content-center">
-        2
-      </div>
-      <div className="grid w-32 h-20 rounded bg-secondary text-secondary-content place-content-center">
-        3
-      </div>
-    </div>
-  );
+  return <div>{currentPost.data.link_title}</div>;
 };

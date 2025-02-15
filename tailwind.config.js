@@ -21,28 +21,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('daisyui')],
-  daisyui: {
-    themes: [
-      'light',
-      'dark',
-      'cupcake',
-      'retro',
-      {
-        reddit: {
-          primary: redditPrimary,
-          secondary: redditSecondary,
-          accent: '#888888',
-          neutral: '#FF450066',
-          'base-100': '#ffffff',
-          info: '#3ABFF8',
-          success: '#36D399',
-          warning: '#FBBD23',
-          error: '#F87272',
-          disabled: redditDisabledHidden,
-          'disabled-opacity': '0.5',
-        },
-      },
-    ],
-  },
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
 };

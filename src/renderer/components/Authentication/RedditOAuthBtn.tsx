@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import RedditIcon from '../../icons/RedditIcon';
 
 type RedditAuthButtonProps = {
@@ -15,10 +16,10 @@ const RedditAuthButton = ({
   const [isHovered, setIsHovered] = useState(false);
   return (
     <button
-      onClick={onClick}
-      disabled={isAuthenticating}
       className={`text-white btn btn-primary ${className}`}
       data-theme="reddit"
+      disabled={isAuthenticating}
+      onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -28,14 +29,15 @@ const RedditAuthButton = ({
         <>
           <div className="z-10">Sign in with</div>
           <RedditIcon
-            className="h-6 -ml-2.5"
             backgroundClassName={`duration-250 ease-out ${
               isAuthenticating
-                ? 'fill-redditDisabledHidden'
+                ? 'fill-base-200/0'
                 : isHovered
-                  ? 'fill-redditSecondary'
-                  : 'fill-redditPrimary'
+                  ? 'fill-secondary'
+                  : 'fill-primary'
             }`}
+            className="h-6 -ml-2.5"
+            redditTextClassName="fill-white"
           />
         </>
       )}

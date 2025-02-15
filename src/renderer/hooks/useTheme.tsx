@@ -14,11 +14,13 @@ const getInitialTheme = () => {
 const loadNewTheme = (prevTheme: string) => {
   switch (prevTheme) {
     case 'dark':
-      return 'cupcake';
-    case 'cupcake':
+      return 'darker';
+    case 'darker':
+      return 'sunset';
+    case 'sunset':
       return 'light';
-    case 'retro':
-      return 'light';
+    case 'light':
+      return 'dark';
     default:
       return 'dark';
   }

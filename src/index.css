@@ -1,6 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes:
+    light --preferslight,
+    dark --default,
+    cupcake,
+    retro,
+    sunset,
+    reddit;
+}
+
+@plugin "daisyui/theme" {
+  name: 'reddit';
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+  --color-primary: #ff4500;
+  --color-secondary: hsl(16.03deg 100% 45.49%);
+  --radius-box: 0.5rem;
+  --radius-selector: 0.25rem;
+  --radius-field: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
 
 @font-face {
   font-family: 'Reddit Sans';

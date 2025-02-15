@@ -1,4 +1,5 @@
 import ky from 'ky';
+
 import { useAuth } from '../context/AuthContext';
 
 import type { Options } from 'ky';

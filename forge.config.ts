@@ -1,9 +1,10 @@
+import { FuseV1Options, FuseVersion } from '@electron/fuses'
+import { MakerRpm } from '@electron-forge/maker-rpm'
 import { MakerSquirrel } from '@electron-forge/maker-squirrel'
 import { MakerZIP } from '@electron-forge/maker-zip'
-import { MakerRpm } from '@electron-forge/maker-rpm'
-import { VitePlugin } from '@electron-forge/plugin-vite'
 import { FusesPlugin } from '@electron-forge/plugin-fuses'
-import { FuseV1Options, FuseVersion } from '@electron/fuses'
+import { VitePlugin } from '@electron-forge/plugin-vite'
+
 import type { ForgeConfig } from '@electron-forge/shared-types'
 
 const config: ForgeConfig = {
@@ -24,17 +25,17 @@ const config: ForgeConfig = {
       build: [
         {
           entry: 'src/main.ts',
-          config: 'vite.main.config.ts'
+          config: 'vite.main.config.mts'
         },
         {
           entry: 'src/preload.ts',
-          config: 'vite.preload.config.ts'
+          config: 'vite.preload.config.mts'
         }
       ],
       renderer: [
         {
           name: 'main_window',
-          config: 'vite.renderer.config.ts'
+          config: 'vite.renderer.config.mts'
         }
       ]
     }),

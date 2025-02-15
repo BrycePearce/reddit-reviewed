@@ -1,7 +1,6 @@
-import React from 'react';
+import { AuthenticationPage } from './AuthenticationPage';
 import { useAuth } from '../../context/AuthContext';
 import { useUser } from '../../hooks/queries/useUser';
-import AuthenticationPage from './AuthenticationPage';
 
 type AuthWrapperProps = {
   children: React.ReactNode;
