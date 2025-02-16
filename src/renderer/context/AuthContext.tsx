@@ -1,12 +1,13 @@
+import { createContext, useContext, useState, ReactNode } from 'react';
+
 import { QueryClient } from '@tanstack/react-query';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 import type { TokenResponse } from 'src/types';
 
 type AuthContextType = {
   authState: TokenResponse;
   setAuthState: (authState: TokenResponse) => void;
-  isAuthenticated: Boolean;
+  isAuthenticated: boolean;
   logout: () => void;
 };
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

@@ -1,9 +1,10 @@
-import { useRandomPost } from '../../hooks/useRandomPost';
+import { usePostsContext } from '../../context/PostsContext';
 import useTheme from '../../hooks/useTheme';
 
-const Aside = () => {
+export const Aside = () => {
   const { cycleTheme } = useTheme();
-  const { randomizePost } = useRandomPost();
+  const { randomPost } = usePostsContext();
+  const { randomizePost } = randomPost;
 
   return (
     <div className="h-full p-4">
@@ -25,5 +26,3 @@ const Aside = () => {
     </div>
   );
 };
-
-export default Aside;

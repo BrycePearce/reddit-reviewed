@@ -1,39 +1,46 @@
 import { useEffect, useState } from 'react';
 
+const themes = [
+  'light',
+  'dark',
+  'cupcake',
+  'retro',
+  'sunset',
+  'reddit',
+  'dracula',
+  'dim',
+  'lofi',
+  'abyss',
+  'nord',
+];
+
 const getInitialTheme = () => {
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
+  if (savedTheme && themes.includes(savedTheme)) {
     return savedTheme;
   }
-
-  // load system preference
+  // load system preference (defaulting to 'light')
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   return prefersDark ? 'dark' : 'light';
 };
 
 const loadNewTheme = (prevTheme: string) => {
-  switch (prevTheme) {
-    case 'dark':
-      return 'sunset';
-    case 'sunset':
-      return 'light';
-    case 'light':
-      return 'dark';
-    default:
-      return 'dark';
+  const currentIndex = themes.indexOf(prevTheme);
+  if (currentIndex === -1) {
+    return themes[0];
   }
+  const nextIndex = (currentIndex + 1) % themes.length;
+  return themes[nextIndex];
 };
 
 const useTheme = () => {
   const [theme, setTheme] = useState(getInitialTheme);
 
-  // Apply the theme to the document element and save the user's choice
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Function to cycle through themes
   const cycleTheme = () => {
     setTheme((prevTheme) => loadNewTheme(prevTheme));
   };

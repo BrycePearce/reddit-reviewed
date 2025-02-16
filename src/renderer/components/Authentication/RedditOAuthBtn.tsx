@@ -17,7 +17,6 @@ const RedditAuthButton = ({
   return (
     <button
       className={`text-white btn btn-primary ${className}`}
-      data-theme="reddit"
       disabled={isAuthenticating}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}

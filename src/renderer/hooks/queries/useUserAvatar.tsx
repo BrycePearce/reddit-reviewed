@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '../../clientConstants/constants';
-import { useAuth } from '../../context/AuthContext';
 import { useAuthFetch } from '../useAuthFetch';
 
-export const useUser = () => {
+import type { UserData } from '../../types/reddit/UserData';
+
+export const useUserAvatar = (userId: string) => {
   const { authenticatedFetch } = useAuthFetch();
-  const { isAuthenticated } = useAuth();
 
   const {
     data: userInfo,
@@ -14,12 +14,16 @@ export const useUser = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: [queryKeys.userInfo],
-    queryFn: () => authenticatedFetch('https://oauth.reddit.com/api/v1/me'),
+    queryKey: queryKeys.userAvatar(userId),
+    queryFn: async () => {
+      const response = await authenticatedFetch<UserData>(
+        `https://oauth.reddit.com/api/user_data_by_account_ids?ids=${userId}`
+      );
+      return response[userId];
+    },
     refetchOnWindowFocus: false,
-    enabled: !!isAuthenticated,
-    staleTime: 5 * 60 * 1000,
     retry: false,
+    staleTime: 20 * 60 * 1000,
   });
 
   return {

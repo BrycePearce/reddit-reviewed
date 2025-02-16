@@ -31,7 +31,7 @@ export const AuthenticationPage = () => {
         authWindow.close();
       }
     };
-  }, [authWindow]);
+  }, [authWindow, setIsAuthenticating]);
 
   return (
     <main
@@ -47,7 +47,7 @@ export const AuthenticationPage = () => {
           />
         </div>
         <RedditAuthButton
-          className="w-72"
+          className="w-96"
           isAuthenticating={isAuthenticating}
           onClick={onSignin}
         />

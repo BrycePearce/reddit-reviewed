@@ -1,5 +1,9 @@
+// eslint-disable-next-line import/no-named-as-default
+import DOMPurify from 'dompurify';
+
 import { RedditComment } from '../../../types/reddit/Comment';
 import { RedditPostTypes } from '../../../types/reddit/Common';
+import UserAvatar from '../../common/UserAvatar';
 
 type SwipeCommentProps = {
   post: {
@@ -9,11 +13,21 @@ type SwipeCommentProps = {
 };
 
 const SwipeComment = ({ post }: SwipeCommentProps) => {
+  const sanitizedHtml = DOMPurify.sanitize(post.data.body_html);
+  console.log('comment post', post);
   return (
-    <div>
-      <h1>{post.data.body}</h1>
-      <div>{post.kind}</div>
-    </div>
+    <article className="prose">
+      <header className="flex">
+        <UserAvatar
+          authorFullname={post.data.author_fullname}
+          className="w-14 h-14"
+        />
+      </header>
+      <section
+        dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+        className="mx-auto mt-8"
+      ></section>
+    </article>
   );
 };
 

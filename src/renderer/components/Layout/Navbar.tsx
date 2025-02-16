@@ -1,6 +1,6 @@
 import useTheme from '../../hooks/useTheme';
 
-const Navbar = () => {
+export const Navbar = () => {
   const { cycleTheme } = useTheme();
   return (
     <div className="navbar bg-base-100">
@@ -23,5 +23,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export default Navbar;

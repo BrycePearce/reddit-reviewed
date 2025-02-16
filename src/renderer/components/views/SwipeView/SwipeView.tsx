@@ -1,18 +1,11 @@
 import SwipeComment from './SwipeComment';
 import SwipeThread from './SwipeThread';
-import { useRandomPost } from '../../../hooks/useRandomPost';
+import { usePostsContext } from '../../../context/PostsContext';
 import { RedditPostTypes } from '../../../types/reddit/Common';
 
 export const SwipeView = () => {
-  const { currentPost, isLoading } = useRandomPost();
-  //  switch (item.kind) {
-  //    case RedditKind.Post: // t3
-  //      return <PostCard post={item.data} />;
-  //    case RedditKind.Comment: // t1
-  //      return <CommentCard comment={item.data} />;
-  //    default:
-  //      return null; // or fallback
-  //  }
+  const { randomPost } = usePostsContext();
+  const { currentPost, isLoading } = randomPost;
 
   if (isLoading) {
     return (
@@ -30,11 +23,6 @@ export const SwipeView = () => {
       </div>
     );
   }
-
-  console.log('SwipeView render:', {
-    currentPost,
-    kind: currentPost?.kind,
-  });
 
   if (currentPost.kind === RedditPostTypes.Post) {
     return <SwipeThread key={currentPost.data.id} post={currentPost} />;
