@@ -16,7 +16,7 @@ const RedditAuthButton = ({
   const [isHovered, setIsHovered] = useState(false);
   return (
     <button
-      className={`text-white btn btn-primary ${className}`}
+      className={`text-white btn btn-lg btn-primary ${className}`}
       disabled={isAuthenticating}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
@@ -35,7 +35,7 @@ const RedditAuthButton = ({
                   ? 'fill-secondary'
                   : 'fill-primary'
             }`}
-            className="h-6 -ml-2.5"
+            className="h-8 -ml-2.5 mb-0.5"
             redditTextClassName="fill-white"
           />
         </>

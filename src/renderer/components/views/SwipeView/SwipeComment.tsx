@@ -1,8 +1,11 @@
+// eslint-disable-next-line import/no-named-as-default
 import DOMPurify from 'dompurify';
+
 import { RedditComment } from '../../../types/reddit/Comment';
 import { RedditPostTypes } from '../../../types/reddit/Common';
 import UserAvatar from '../../common/UserAvatar';
 import { timeAgoFromEpoch } from '../../helpers/timeUtils';
+import LinkIcon from '../../icons/LinkIcon';
 
 type SwipeCommentProps = {
   post: {
@@ -23,18 +26,17 @@ const SwipeComment = ({ post }: SwipeCommentProps) => {
         grid-rows-[auto_auto]
         gap-x-3
         gap-y-1
-        prose
       "
     >
       <UserAvatar
         authorFullname={post.data.author_fullname}
-        className="w-14 h-14 not-prose"
+        className="w-14 h-14"
       />
 
       <header className="flex items-center gap-2">
         <div className="font-bold text-base-content">{post.data.author}</div>
-        <div className="flex gap-2 text-sm">
-          <div className="separator" aria-hidden="true">
+        <div className="flex items-center gap-2 text-sm">
+          <div aria-hidden="true" className="separator">
             •
           </div>
           <time
@@ -43,12 +45,23 @@ const SwipeComment = ({ post }: SwipeCommentProps) => {
           >
             {timeAgoFromEpoch(post.data.created_utc)}
           </time>
+
+          <a
+            aria-label="Open comment in Reddit"
+            className="z-10 inline-flex items-center link link-secondary hover:link-primary"
+            href={`https://reddit.com${post.data.permalink}`}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Open comment in Reddit"
+          >
+            <LinkIcon className="w-4 h-4" />
+          </a>
         </div>
       </header>
 
       <section
         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-        className="col-span-1 col-start-2 row-start-2 -mt-8"
+        className="col-span-1 col-start-2 row-start-2 -mt-10 prose"
       />
     </article>
   );
