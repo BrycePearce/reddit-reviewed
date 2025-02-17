@@ -40,23 +40,19 @@ const createWindow = () => {
         role: 'paste'
       },
       {
-        label: 'Cut                                 ✂️',
-        role: 'cut'
+        label: 'Reload                            🔄',
+        role: 'reload'
       },
       { type: 'separator' },
-      {
-        label: 'Toggle DevTools              📱',
-        role: 'toggleDevTools'
-      },
       {
         label: 'Select All                         🔍',
         role: 'selectAll'
       },
       { type: 'separator' },
       {
-        label: 'Reload                             🔄',
-        role: 'reload'
-      }
+        label: 'Toggle DevTools              📱',
+        role: 'toggleDevTools'
+      },
     ];
 
     const menu = Menu.buildFromTemplate(template)
