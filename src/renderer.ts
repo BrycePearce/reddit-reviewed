@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable indent */
 /**
  * This file will automatically be loaded by vite and run in the "renderer" context.
  * To learn more about the differences between the "main" and the "renderer" context in
@@ -25,6 +27,10 @@
  *  });
  * ```
  */
+
+window.addEventListener('contextmenu', () => {
+    window.electronAPI.showContextMenu()
+});
 
 import './index.css'
 import './renderer/app'

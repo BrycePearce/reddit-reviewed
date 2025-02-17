@@ -30,45 +30,44 @@ const UserAvatar = ({
 
   if (isError) {
     return (
-      <div className="avatar">
-        <div className={className}>
-          <img
-            alt={alt}
-            className="w-full h-full rounded-full not-prose"
-            src={defaultAvatar}
-          />
-          {error instanceof Error && (
-            <span className="sr-only">{error.message}</span>
-          )}
-        </div>
-      </div>
+      <figure aria-label={alt} className={`avatar m-0 ${className}`} role="img">
+        <img
+          alt=""
+          className="w-full h-full transition-opacity duration-200 rounded-full ring ring-base-300"
+          src={defaultAvatar}
+        />
+        {error instanceof Error && (
+          <figcaption className="sr-only">{error.message}</figcaption>
+        )}
+      </figure>
     );
   }
 
   return (
-    <div className={`avatar ${className}`}>
-      <div className={className}>
-        {/* shimmer loader */}
-        {(isLoading || !isImageLoaded) && (
-          <div className="w-full h-full rounded-full skeleton" />
-        )}
+    <figure aria-label={alt} className={`avatar m-0 ${className}`} role="img">
+      {/* shimmer loader */}
+      {(isLoading || !isImageLoaded) && (
+        <div
+          aria-busy="true"
+          aria-label="Loading avatar"
+          className="w-full h-full rounded-full skeleton"
+          role="progressbar"
+        />
+      )}
 
-        {userInfo?.profile_img && !imageError && (
-          <img
-            alt={alt}
-            className={`not-prose rounded-full transition-opacity duration-200 m-0 w-full h-full ${
-              isImageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            loading="lazy"
-            src={decodeURIComponent(
-              userInfo.profile_img.replace(/&amp;/g, '&')
-            )}
-            onError={handleError}
-            onLoad={handleLoad}
-          />
-        )}
-      </div>
-    </div>
+      {userInfo?.profile_img && !imageError && (
+        <img
+          alt=""
+          className={`rounded-full ring ring-base-200 transition-opacity duration-200 w-full h-full ${
+            isImageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading="lazy"
+          src={decodeURIComponent(userInfo.profile_img.replace(/&amp;/g, '&'))}
+          onError={handleError}
+          onLoad={handleLoad}
+        />
+      )}
+    </figure>
   );
 };
 

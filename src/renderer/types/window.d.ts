@@ -3,8 +3,10 @@ import type { TokenResponse } from "src/types";
 declare global {
   interface Window {
     electronAPI: {
-      onOauth: (callback: (token: TokenResponse) => void) => void;
+      showContextMenu: () => void;
+      onContextMenuCommand: (callback: (command: string) => void) => void;
       clearOauthListeners: () => void;
+      onOauth: (callback: (token: TokenResponse) => void) => void;
     }
   }
 }

@@ -1,7 +1,7 @@
-import { app, BrowserWindow, ipcMain, protocol } from 'electron'
-import path from 'path'
+import { app, BrowserWindow, ipcMain, protocol, Menu } from 'electron'
 import started from 'electron-squirrel-startup';
 import Store from 'electron-store';
+import path from 'path'
 
 import { exchangeAuthorizationCodeForToken } from './api/auth'
 import { applicationName, deeplinkUrl } from './constants/constants'
@@ -19,13 +19,48 @@ if (started) {
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1600,
+    height: 1200,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true
     }
+  })
+
+  // right click context menu
+  ipcMain.on('show-context-menu', (event) => {
+    const template: Electron.MenuItemConstructorOptions[] = [
+      {
+        label: 'Copy                              📋',
+        role: 'copy',
+      },
+      {
+        label: 'Paste                              📝',
+        role: 'paste'
+      },
+      {
+        label: 'Cut                                 ✂️',
+        role: 'cut'
+      },
+      { type: 'separator' },
+      {
+        label: 'Toggle DevTools              📱',
+        role: 'toggleDevTools'
+      },
+      {
+        label: 'Select All                         🔍',
+        role: 'selectAll'
+      },
+      { type: 'separator' },
+      {
+        label: 'Reload                             🔄',
+        role: 'reload'
+      }
+    ];
+
+    const menu = Menu.buildFromTemplate(template)
+    menu.popup({ window: BrowserWindow.fromWebContents(event.sender) })
   })
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {

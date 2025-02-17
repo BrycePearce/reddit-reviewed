@@ -25,7 +25,7 @@ const SwipeThread = ({ post }: SwipeThreadProps) => {
       </header>
       <section
         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-        className="mx-auto mt-8"
+        className="mx-auto"
       ></section>
     </article>
   );
