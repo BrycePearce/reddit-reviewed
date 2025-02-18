@@ -1,8 +1,8 @@
 # Reddit Reviewed (WIP)
 
-**reddit-reviewed** 👓📜, is a multi-platform application that allows acts as your personal Reddit history navigator.
+**reddit-reviewed** is a multi-platform application that allows acts as your personal Reddit history navigator, showing you your saved post history with swipe interactions to save or remove it.
 
-Swipe away your saved post history with Reddit Reviewed!
+Review your saved post history with Reddit Reviewed!
 
 ## Features
 
@@ -56,9 +56,10 @@ npm start
 npm run make
 ```
 
-### FAQ
+### IFAQ
 
 **Q**: This really sounds more useful as a mobile application.
+
 **A**: True
 
 ### Tech Stack
