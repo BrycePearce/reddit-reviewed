@@ -1,5 +1,8 @@
 # Reddit Reviewed (WIP)
 
+![image](https://github.com/user-attachments/assets/896c1afc-feec-4c6e-8f93-0388eaf81052)
+
+
 **reddit-reviewed** is a multi-platform application that allows acts as your personal Reddit history navigator, showing you your saved post history with swipe interactions to save or remove it.
 
 Review your saved post history with Reddit Reviewed!
