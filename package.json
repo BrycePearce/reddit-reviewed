@@ -64,9 +64,8 @@
     "vite": "^6.1.0"
   },
   "keywords": [],
-  "author": {
-    "name": "Bryce Bryce",
-    "email": "bpearce@angelo.edu"
+  "engines": {
+    "node": ">=18.0.0"
   },
   "license": "MIT"
 }

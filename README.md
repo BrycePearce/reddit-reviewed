@@ -1,6 +1,8 @@
-# Reddit Reviewed
+# Reddit Reviewed (WIP)
 
-Welcome to **reddit-reviewed** 👓📜, an Electron Forge application crafted with React and styled using Tailwind CSS. This app is your personal Reddit history navigator, allowing you to manage and modify your Reddit interactions effortlessly. Unsave comments, remove threads, or retract upvotes with a few clicks!
+**reddit-reviewed** 👓📜, is a multi-platform application that allows acts as your personal Reddit history navigator.
+
+Swipe away your saved post history with Reddit Reviewed!
 
 ## Features
 
@@ -12,13 +14,11 @@ Welcome to **reddit-reviewed** 👓📜, an Electron Forge application crafted w
 
 💾 **Secure and Private**: Your Reddit history stays private, as all data is managed locally on your device.
 
-## Getting Started
-
-### Prerequisites
+### Build locally
 
 Before you begin, ensure you have the following installed:
-- Node.js (LTS version)
-- npm (comes with Node.js)
+
+- Node.js (18+)
 
 ### Installation
 
@@ -40,8 +40,8 @@ npm install
 Create a `.env` file in the root directory and add your Reddit API keys:
 
 ```plaintext
-REDDIT_CLIENT_ID=your_client_id
-REDDIT_SECRET=your_secret
+VITE_REDDIT_CLIENT_ID=your_client_id
+VITE_REDDIT_CALLBACK_URL=your_secret
 ```
 
 4. **Run the application**
@@ -50,10 +50,21 @@ REDDIT_SECRET=your_secret
 npm start
 ```
 
-## Technologies Used
+5. **Build your very own binary**
+
+```bash
+npm run make
+```
+
+### FAQ
+
+**Q**: This really sounds more useful as a mobile application.
+**A**: True
+
+### Tech Stack
 
 - **Electron Forge**
 - **React**
-- **Tailwind CSS**
-- **Reddit API**
+- **Tailwind**
 - **Daisy UI**
+- **Reddit API**
