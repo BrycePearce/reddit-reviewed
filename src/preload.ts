@@ -9,11 +9,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   clearOauthListeners() {
     ipcRenderer.removeAllListeners('oauth')
   },
+  // handle oauth events
   onOauth(callback: (token: TokenResponse) => void) {
     ipcRenderer.on('oauth', (_event, token: TokenResponse) => {
       callback(token)
     })
   },
+  getStoredAuth: () => ipcRenderer.invoke('get-stored-auth'),
+  deleteStoredAuth: () => ipcRenderer.invoke('delete-stored-auth'),
 
   // context menu stuff
   onContextMenuCommand: (callback: (command: string) => void) => {

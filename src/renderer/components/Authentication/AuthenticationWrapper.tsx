@@ -9,8 +9,16 @@ type AuthWrapperProps = {
 export const AuthenticationWrapper: React.FC<AuthWrapperProps> = ({
   children,
 }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isAuthInitializing } = useAuth();
   const { isLoading, isError, error } = useUser();
+
+  if (isAuthInitializing) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="loading loading-spinner" />
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return <AuthenticationPage />;

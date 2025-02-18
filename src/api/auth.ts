@@ -3,6 +3,7 @@ import type { TokenResponse } from "src/types";
 const root = "https://www.reddit.com/api/";
 const version = "v1";
 const baseUrl = `${root}${version}`;
+export const CLIENT_ID = import.meta.env.VITE_REDDIT_CLIENT_ID;
 
 export const exchangeAuthorizationCodeForToken = async (authorizationCode: string) => {
   try {
@@ -10,12 +11,12 @@ export const exchangeAuthorizationCodeForToken = async (authorizationCode: strin
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${Buffer.from(`uhNfvEcSB48xRG6f535_vA:`).toString('base64')}`,
+        'Authorization': `Basic ${Buffer.from(`${CLIENT_ID}:`).toString('base64')}`,
       },
       body: new URLSearchParams({
         code: authorizationCode,
         grant_type: 'authorization_code',
-        redirect_uri: 'redditSaved://callback',
+        redirect_uri: import.meta.env.VITE_REDDIT_CALLBACK_URL,
       }),
     });
 

@@ -1,5 +1,5 @@
-export const CLIENT_ID = 'uhNfvEcSB48xRG6f535_vA'
-export const redditCallbackUrl = "redditSaved://callback"
+export const CLIENT_ID = import.meta.env.VITE_REDDIT_CLIENT_ID;
+export const redditCallbackUrl = import.meta.env.VITE_REDDIT_CALLBACK_URL;
 
 export const queryKeys = {
     userInfo: 'userInfo',

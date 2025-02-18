@@ -97,6 +97,12 @@ if (!isAppReinstantiated) {
       (async () => {
         try {
           const tokenResponse = await exchangeAuthorizationCodeForToken(authorizationCode);
+          // store new token
+          store.set('auth', {
+            ...tokenResponse
+          });
+
+          // send new token to client
           mainWindow?.webContents.send('oauth', tokenResponse);
         } catch (error) {
           console.error('Failed to exchange authorization code for token:', error);
@@ -124,22 +130,16 @@ if (process.defaultApp) {
   app.setAsDefaultProtocolClient(applicationName)
 }
 
+ipcMain.handle('get-stored-auth', () => {
+  return store.get('auth');
+});
+
+ipcMain.handle('delete-stored-auth', () => {
+  store.delete('auth');
+});
+
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
 })
-
-// todo: implement this so it saves the token after closing, integrate checking it in react code (may need to be converted to module)
-// handle token storage
-ipcMain.handle('save-auth-token', (event, token) => {
-  store.set('authToken', token);
-});
-
-ipcMain.handle('get-auth-token', (event) => {
-  return store.get('authToken');
-});
-
-ipcMain.handle('delete-auth-token', (event) => {
-  store.delete('authToken');
-});
