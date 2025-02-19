@@ -16,7 +16,7 @@ export const Navbar = () => {
             <a className="text-base">Item 1</a>
           </li>
           <li>
-            <div className="p-0 form-control">
+            <div className="form-control">
               <label
                 htmlFor="swipe-mode-toggle"
                 className="gap-2 cursor-pointer label"
@@ -36,10 +36,7 @@ export const Navbar = () => {
             </div>
           </li>
           <li>
-            <button
-              className="p-0 text-base btn btn-ghost"
-              onClick={cycleTheme}
-            >
+            <button className="text-base btn btn-ghost" onClick={cycleTheme}>
               Toggle Theme
             </button>
           </li>

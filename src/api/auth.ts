@@ -1,6 +1,7 @@
-import type { TokenResponse } from "src/types";
+import { redditUrls } from "../renderer/clientConstants/constants";
+import { TokenResponse } from "../types";
 
-const root = "https://www.reddit.com/api/";
+const root = redditUrls.apiUrl;
 const version = "v1";
 const baseUrl = `${root}${version}`;
 export const CLIENT_ID = import.meta.env.VITE_REDDIT_CLIENT_ID;

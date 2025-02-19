@@ -1,6 +1,7 @@
 import ky from 'ky';
 
 import { useAuth } from '../context/AuthContext';
+import { redditUrls } from '../clientConstants/constants';
 
 import type { Options } from 'ky';
 import type { TokenResponse } from 'src/types';
@@ -8,11 +9,12 @@ import type { TokenResponse } from 'src/types';
 // wraps ky with Reddit auth token refresh
 export const useAuthFetch = () => {
   const { authState, setAuthState, logout } = useAuth();
+  const { accessTokenUrl } = redditUrls;
 
   const refreshAuthToken = async () => {
     try {
       const refreshedTokens: TokenResponse = await ky
-        .post('https://www.reddit.com/api/v1/access_token', {
+        .post(accessTokenUrl, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Basic ${Buffer.from(

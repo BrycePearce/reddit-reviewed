@@ -8,6 +8,7 @@ import { timeAgoFromEpoch } from '../../helpers/timeUtils';
 import LinkIcon from '../../icons/LinkIcon';
 import { motion } from 'framer-motion';
 import { useSettingsContext } from '../../../context/UserSettingsContext';
+import { redditUrls } from '../../../clientConstants/constants';
 
 type SwipeCommentProps = {
   post: {
@@ -21,6 +22,8 @@ const SwipeComment = ({ post, swipeViewContainerRef }: SwipeCommentProps) => {
   const { isSwipeMode } = useSettingsContext();
   const sanitizedHtml = DOMPurify.sanitize(post.data.body_html);
   const postCreatedDate = new Date(post.data.created_utc * 1000);
+  const { postPermalink, userProfile } = redditUrls;
+
   return (
     <motion.article
       drag={isSwipeMode}
@@ -56,7 +59,16 @@ const SwipeComment = ({ post, swipeViewContainerRef }: SwipeCommentProps) => {
       />
 
       <header className="flex items-center gap-2">
-        <div className="font-bold text-base-content">{post.data.author}</div>
+        <a
+          aria-label="Open author profile in Reddit"
+          className="z-10 font-bold text-base-content link link-secondary hover:link-primary"
+          href={userProfile(post.data.author)}
+          rel="noopener noreferrer"
+          target="_blank"
+          title="Open author profile in Reddit"
+        >
+          {post.data.author}
+        </a>
         <div className="flex items-center gap-2 text-sm">
           <div aria-hidden="true" className="separator">
             •
@@ -71,7 +83,7 @@ const SwipeComment = ({ post, swipeViewContainerRef }: SwipeCommentProps) => {
           <a
             aria-label="Open comment in Reddit"
             className="z-10 inline-flex items-center link link-secondary hover:link-primary"
-            href={`https://reddit.com${post.data.permalink}`}
+            href={postPermalink(post.data.permalink)}
             rel="noopener noreferrer"
             target="_blank"
             title="Open comment in Reddit"

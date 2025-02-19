@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { queryKeys } from '../../clientConstants/constants';
+import { queryKeys, redditUrls } from '../../clientConstants/constants';
 import { useAuth } from '../../context/AuthContext';
 import { useAuthFetch } from '../useAuthFetch';
 import { useUser } from './useUser';
@@ -11,11 +11,11 @@ interface SavedPostsParams {
   type?: 'links' | 'comments';
 }
 
-// todo: add types
 export const useSavedPosts = ({ limit = 100, type }: SavedPostsParams = {}) => {
   const { authenticatedFetch } = useAuthFetch();
   const { authState } = useAuth();
   const { userInfo } = useUser();
+  const { savedPosts } = redditUrls;
 
   const {
     data,
@@ -36,7 +36,7 @@ export const useSavedPosts = ({ limit = 100, type }: SavedPostsParams = {}) => {
       });
 
       return await authenticatedFetch<RedditPostResponse>(
-        `https://oauth.reddit.com/user/${(userInfo as any).name}/saved?${params}`
+        savedPosts(userInfo?.name, params)
       );
     },
     getNextPageParam: (lastPage: RedditPostResponse) =>

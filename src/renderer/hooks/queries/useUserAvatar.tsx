@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { queryKeys } from '../../clientConstants/constants';
+import { queryKeys, redditUrls } from '../../clientConstants/constants';
 import { useAuthFetch } from '../useAuthFetch';
 
 import type { UserData } from '../../types/reddit/UserData';
 
 export const useUserAvatar = (userId: string) => {
   const { authenticatedFetch } = useAuthFetch();
+  const { userDataByAccountIds } = redditUrls;
 
   const {
     data: userInfo,
@@ -17,7 +18,7 @@ export const useUserAvatar = (userId: string) => {
     queryKey: queryKeys.userAvatar(userId),
     queryFn: async () => {
       const response = await authenticatedFetch<UserData>(
-        `https://oauth.reddit.com/api/user_data_by_account_ids?ids=${userId}`
+        userDataByAccountIds(userId)
       );
       return response[userId];
     },
