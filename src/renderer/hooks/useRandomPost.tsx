@@ -14,9 +14,9 @@ export const useRandomPost = () => {
     if (!savedPosts?.pages) return;
     const allPosts = savedPosts.pages.flatMap((page) => page.data.children);
     if (!allPosts.length) return;
+
     const randomIndex = Math.floor(Math.random() * allPosts.length);
     const newPost = allPosts[randomIndex];
-    console.log('randomizing', { ...newPost });
     setCurrentPost({ ...newPost });
   }, [savedPosts]);
 

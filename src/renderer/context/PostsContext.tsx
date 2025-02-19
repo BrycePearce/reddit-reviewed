@@ -6,7 +6,7 @@ import { useRandomPost } from '../hooks/useRandomPost';
 const PostsContext = createContext<{
   randomPost: ReturnType<typeof useRandomPost>;
   savedPosts: ReturnType<typeof useSavedPosts>;
-} | null>(null);
+}>(null);
 
 export const PostsProvider = ({ children }: { children: React.ReactNode }) => {
   const randomPost = useRandomPost();

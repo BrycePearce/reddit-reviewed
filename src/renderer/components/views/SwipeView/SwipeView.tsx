@@ -3,7 +3,11 @@ import SwipeThread from './SwipeThread';
 import { usePostsContext } from '../../../context/PostsContext';
 import { RedditPostTypes } from '../../../types/reddit/Common';
 
-export const SwipeView = () => {
+type SwipeViewProps = {
+  swipeViewContainerRef: React.RefObject<HTMLDivElement>;
+};
+
+export const SwipeView = ({ swipeViewContainerRef }: SwipeViewProps) => {
   const { randomPost } = usePostsContext();
   const { currentPost, isLoading } = randomPost;
 
@@ -25,11 +29,16 @@ export const SwipeView = () => {
   }
 
   if (currentPost.kind === RedditPostTypes.Post) {
-    return <SwipeThread key={currentPost.data.id} post={currentPost} />;
+    return <SwipeThread post={currentPost} />;
   }
 
   if (currentPost.kind === RedditPostTypes.Comment) {
-    return <SwipeComment key={currentPost.data.id} post={currentPost} />;
+    return (
+      <SwipeComment
+        post={currentPost}
+        swipeViewContainerRef={swipeViewContainerRef}
+      />
+    );
   }
 
   return (

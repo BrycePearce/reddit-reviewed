@@ -14,7 +14,7 @@ type SwipeThreadProps = {
 
 const SwipeThread = ({ post }: SwipeThreadProps) => {
   const sanitizedHtml = DOMPurify.sanitize(post.data.body_html);
-  console.log('thread post', post);
+
   return (
     <article className="prose">
       <header className="flex">
