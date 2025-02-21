@@ -7,7 +7,6 @@ import { PostsProvider } from './context/PostsContext';
 import { UserSettingsProvider } from './context/UserSettingsContext';
 
 const Root = () => {
-  const swipeViewContainerRef = useRef<HTMLDivElement>(null);
   return (
     <AuthenticationWrapper>
       <UserSettingsProvider>
@@ -18,12 +17,7 @@ const Root = () => {
             </aside>
             <div className="flex flex-col flex-1">
               <Navbar />
-              <main
-                className="flex items-center justify-center flex-1 p-6 overflow-hidden"
-                ref={swipeViewContainerRef}
-              >
-                <SwipeView swipeViewContainerRef={swipeViewContainerRef} />
-              </main>
+              <SwipeView />
             </div>
           </div>
         </PostsProvider>

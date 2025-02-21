@@ -30,7 +30,9 @@ export const useRandomPost = () => {
   return {
     currentPost,
     randomizePost,
-    isLoading: !isError && (isLoading || !currentPost),
+    isLoading:
+      !isError &&
+      (isLoading || (!currentPost && savedPosts?.pages === undefined)),
     isError,
   };
 };

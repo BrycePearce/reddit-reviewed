@@ -1,9 +1,11 @@
+import { useAuth } from '../../context/AuthContext';
 import { useSettingsContext } from '../../context/UserSettingsContext';
 import useTheme from '../../hooks/useTheme';
 
 export const Navbar = () => {
   const { cycleTheme } = useTheme();
   const { isSwipeMode, setIsSwipeMode } = useSettingsContext();
+  const { logout } = useAuth();
 
   return (
     <div className="navbar bg-base-100">
@@ -13,7 +15,9 @@ export const Navbar = () => {
       <div className="flex-none">
         <ul className="items-center gap-4 menu menu-horizontal">
           <li>
-            <a className="text-base">Item 1</a>
+            <button className="text-base btn" onClick={() => logout()}>
+              Logout
+            </button>
           </li>
           <li>
             <div className="form-control">

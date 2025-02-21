@@ -12,7 +12,7 @@ export const PostsProvider = ({ children }: { children: React.ReactNode }) => {
   const randomPost = useRandomPost();
   const savedPosts = useSavedPosts();
 
-  const value = useMemo(
+  const postData = useMemo(
     () => ({
       randomPost,
       savedPosts,
@@ -21,7 +21,7 @@ export const PostsProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <PostsContext.Provider value={value}>{children}</PostsContext.Provider>
+    <PostsContext.Provider value={postData}>{children}</PostsContext.Provider>
   );
 };
 

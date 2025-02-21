@@ -11,6 +11,7 @@ export const redditUrls = {
     accessTokenUrl: 'https://www.reddit.com/api/v1/access_token',
     apiUrl: 'https://www.reddit.com/api/',
     me: 'https://oauth.reddit.com/api/v1/me',
+    unsavePost: 'https://oauth.reddit.com/api/unsave',
     oAuth: (CLIENT_ID: string, state: string, redirectUri: string, scope: string) => `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=code&state=${state}&redirect_uri=${redirectUri}&scope=${scope}&duration=permanent`,
     postPermalink: (permalink: string) => `https://reddit.com${permalink}`,
     savedPosts: (username: string, params: URLSearchParams) => `https://oauth.reddit.com/user/${username}/saved?${params}`,
