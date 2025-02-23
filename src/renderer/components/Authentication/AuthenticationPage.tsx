@@ -1,37 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import RedditAuthButton from './RedditOAuthBtn';
 import snooLogin from '../../assets/images/snoo-login.png';
 import { useAuthListener } from '../../hooks/useAuthListener';
-import { loadOauthUrl } from '../../utils/utils';
 
 export const AuthenticationPage = () => {
-  const { isAuthenticating, setIsAuthenticating } = useAuthListener();
-  const [authWindow, setAuthWindow] = useState<Window | null>(null);
-
-  const onSignin = () => {
-    setIsAuthenticating(true);
-    const authUrl = loadOauthUrl();
-
-    const newAuthWindow = window.open(authUrl, '_blank');
-    setAuthWindow(newAuthWindow);
-  };
-
-  useEffect(() => {
-    const checkWindow = setInterval(() => {
-      if (!authWindow || authWindow.closed) {
-        setIsAuthenticating(false);
-        clearInterval(checkWindow);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(checkWindow);
-      if (authWindow && !authWindow.closed) {
-        authWindow.close();
-      }
-    };
-  }, [authWindow, setIsAuthenticating]);
+  const { authErrorMsg, isAuthenticating, onSignin } = useAuthListener();
 
   return (
     <main
@@ -52,6 +24,27 @@ export const AuthenticationPage = () => {
           isAuthenticating={isAuthenticating}
           onClick={onSignin}
         />
+        <div className="h-12 w-96">
+          {/* Container for consistent spacing */}
+          {authErrorMsg && (
+            <div role="alert" className="alert alert-error animate-fade-in">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6 stroke-current shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Error: {authErrorMsg}</span>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );

@@ -91,9 +91,15 @@ if (!isAppReinstantiated) {
     if (protocolUrl) {
       const url = new URL(protocolUrl)
       const authorizationCode = url.searchParams.get('code');
-      if (!authorizationCode) throw new Error('No authorization code found');
+      const error = url.searchParams.get('error');
 
-      // async IIFE so we can use await
+      if (error) {
+        // Send error to client
+        mainWindow?.webContents.send('oauth-error', { error, description: url.searchParams.get('error_description') || 'Authorization declined' });
+        return;
+      }
+
+      // async IIFE so we can use await, do the token exchange
       (async () => {
         try {
           const tokenResponse = await exchangeAuthorizationCodeForToken(authorizationCode);

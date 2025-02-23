@@ -15,6 +15,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
       callback(token)
     })
   },
+  onOauthError(callback: (error: { error: string; description: string }) => void) {
+    ipcRenderer.on('oauth-error', (_event, errorData) => {
+      callback(errorData);
+    });
+  },
   getStoredAuth: () => ipcRenderer.invoke('get-stored-auth'),
   deleteStoredAuth: () => ipcRenderer.invoke('delete-stored-auth'),
 

@@ -8,6 +8,7 @@ declare global {
       getStoredAuth: () => Promise<TokenResponse | undefined>;
       onContextMenuCommand: (callback: (command: string) => void) => void;
       onOauth: (callback: (token: TokenResponse) => void) => void;
+      onOauthError: (callback: ({ error, description }: { error: string, description: string }) => void) => void;
       showContextMenu: () => void;
     }
   }
