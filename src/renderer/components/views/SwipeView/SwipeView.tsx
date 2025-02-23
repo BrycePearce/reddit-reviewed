@@ -1,3 +1,4 @@
+// todo: review this whole file for improvements, seems hack
 import { useRef, useState } from 'react';
 import SwipeComment from './SwipeComment';
 import SwipeThread from './SwipeThread';
@@ -9,7 +10,7 @@ import { isInsideZone } from '../../helpers/zoneCalculations';
 import { useUnsavePost } from '../../../hooks/queries/useUnsavePost';
 import type { OnMotionEvent } from '../../../types/motion/motion';
 
-const LoadingSkeleton = () => (
+const SwipeViewSkeleton = () => (
   <div className="flex flex-col gap-4 w-52">
     <div className="flex items-center gap-4">
       <div className="w-16 h-16 rounded-full skeleton shrink-0" />
@@ -29,11 +30,11 @@ export const SwipeView = () => {
   const leftDropZoneRef = useRef<HTMLDivElement>(null);
   const rightDropZoneRef = useRef<HTMLDivElement>(null);
   const { mutate: unsavePost } = useUnsavePost();
+  const [isDismissing, setIsDismissing] = useState(false);
 
-  const { currentPost, isLoading } = randomPost;
-  console.log('currentPost', currentPost);
+  const { currentPost, isLoading, randomizePost } = randomPost;
 
-  const handlePostDrop = ({ info }: OnMotionEvent) => {
+  const handlePostDrop = async ({ info }: OnMotionEvent) => {
     setIsSwipeMotionActive(false);
 
     const { x, y } = info.point;
@@ -42,8 +43,22 @@ export const SwipeView = () => {
 
     // Check if pointer is inside left zone
     if (leftZoneRect && isInsideZone(x, y, leftZoneRect, 0.25)) {
+      setIsDismissing(true);
+
       console.log('Dropped in LEFT zone!');
-      unsavePost({ postId: currentPost.data.name });
+
+      // todo: use onAnimationComplete for motion elements or something instad of timeout to load new post
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
+      unsavePost(
+        { postName: currentPost.data.name },
+        {
+          onSuccess: () => {
+            setIsDismissing(false);
+            randomizePost();
+          },
+        }
+      );
       return;
     }
 
@@ -55,7 +70,7 @@ export const SwipeView = () => {
 
   const renderPostView = () => {
     if (isLoading) {
-      return <LoadingSkeleton />;
+      return <SwipeViewSkeleton />;
     }
 
     if (!currentPost) {
@@ -75,25 +90,25 @@ export const SwipeView = () => {
         </div>
       );
     }
-    switch (currentPost?.kind) {
-      case RedditPostTypes.Post:
-        return <SwipeThread post={currentPost} />;
-      case RedditPostTypes.Comment:
-        return (
-          <SwipeComment
-            post={currentPost}
-            swipeViewContainerRef={swipeViewContainerRef}
-            onMotionStart={() => setIsSwipeMotionActive(true)}
-            onMotionEnd={(motionState) => handlePostDrop(motionState)}
-          />
-        );
-      default:
-        return (
-          <div role="alert" className="alert alert-error">
-            <span>Unable to render content. Invalid post type.</span>
-          </div>
-        );
-    }
+    return (
+      <AnimatePresence mode="wait">
+        {currentPost && !isDismissing && (
+          <>
+            {currentPost.kind === RedditPostTypes.Post ? (
+              <SwipeThread key={currentPost.data.id} post={currentPost} />
+            ) : (
+              <SwipeComment
+                key={currentPost.data.id}
+                post={currentPost}
+                swipeViewContainerRef={swipeViewContainerRef}
+                onMotionStart={() => setIsSwipeMotionActive(true)}
+                onMotionEnd={(motionState) => handlePostDrop(motionState)}
+              />
+            )}
+          </>
+        )}
+      </AnimatePresence>
+    );
   };
 
   return (

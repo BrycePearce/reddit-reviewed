@@ -11,19 +11,31 @@ export const useRandomPost = () => {
   const [currentPost, setCurrentPost] = useState<Post | null>(null);
 
   const randomizePost = useCallback(() => {
-    if (!savedPosts?.pages) return;
-    const allPosts = savedPosts.pages.flatMap((page) => page.data.children);
-    if (!allPosts.length) return;
+    const hasPosts = savedPosts?.pages?.[0].data?.children.length > 0;
+    if (!hasPosts) return;
 
+    const allPosts = savedPosts.pages.flatMap((page) => page.data.children);
     const randomIndex = Math.floor(Math.random() * allPosts.length);
     const newPost = allPosts[randomIndex];
+
     setCurrentPost({ ...newPost });
   }, [savedPosts]);
 
   // seed random post when saved posts are loaded
   useEffect(() => {
-    if (!currentPost && savedPosts?.pages && !isLoading) {
-      randomizePost();
+    if (savedPosts?.pages && !isLoading) {
+      const allPosts = savedPosts.pages.flatMap((page) => page.data.children);
+
+      // Clear current post if no posts left
+      if (allPosts.length === 0) {
+        setCurrentPost(null);
+        return;
+      }
+
+      // Run randomizePost if we have posts but no current post (for cases where user clears all saved, then tabs back in after saving more posts)
+      if (allPosts.length > 0 && !currentPost) {
+        randomizePost();
+      }
     }
   }, [currentPost, savedPosts?.pages, isLoading, randomizePost]);
 
