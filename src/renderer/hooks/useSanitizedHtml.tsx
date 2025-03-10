@@ -46,22 +46,20 @@ export const useSanitizedHtml = (html: string) => {
         if (element.name === 'a' && element.attribs.href) {
           const href = element.attribs.href;
 
-          // Determine if the link is to an image file or known image host
+          // if it's an image link, render it if it's from a trusted host
           const isImageLink =
             IMAGE_EXTENSIONS.some((ext) =>
               href.toLowerCase().endsWith(`.${ext}`)
             ) || KNOWN_IMAGE_HOSTS.some((host) => href.includes(host));
 
           if (isImageLink) {
-            // Wrap the image in a link for external open
             return (
-              <a href={href} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={href}
-                  alt={element.attribs.title || 'Embedded image'}
-                  loading="lazy"
-                />
-              </a>
+              <img
+                alt={element.attribs.title || 'Embedded image'}
+                draggable="false"
+                loading="lazy"
+                src={href}
+              />
             );
           }
 
@@ -73,13 +71,14 @@ export const useSanitizedHtml = (html: string) => {
           );
         }
 
-        // if its an image tag, render the image
+        // if its an image tag, render the image directly, and make it draggable
         if (element.name === 'img' && element.attribs.src) {
           return (
             <img
-              src={element.attribs.src}
               alt={element.attribs.alt || ''}
+              draggable="false"
               loading="lazy"
+              src={element.attribs.src}
             />
           );
         }
