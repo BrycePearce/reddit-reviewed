@@ -7,22 +7,24 @@ export const Aside = () => {
   const { randomizePost } = randomPost;
 
   return (
-    <div className="h-full p-4">
-      <ul className="menu">
-        <li className="lg:hidden">
-          <button className="text-xl">🏠</button>
-        </li>
-        <li className="lg:hidden">
-          <button className="text-xl">⚙️</button>
-        </li>
+    <aside className="h-screen w-52 bg-base-200 shrink-0">
+      <div className="h-full p-4">
+        <ul className="menu">
+          <li className="lg:hidden">
+            <button className="text-xl">🏠</button>
+          </li>
+          <li className="lg:hidden">
+            <button className="text-xl">⚙️</button>
+          </li>
 
-        <li className="hidden lg:block">
-          <button onClick={randomizePost}>Randomize</button>
-        </li>
-        <li className="hidden lg:block">
-          <button onClick={cycleTheme}>toggleTheme</button>
-        </li>
-      </ul>
-    </div>
+          <li className="hidden lg:block">
+            <button onClick={randomizePost}>Randomize</button>
+          </li>
+          <li className="hidden lg:block">
+            <button onClick={cycleTheme}>toggleTheme</button>
+          </li>
+        </ul>
+      </div>
+    </aside>
   );
 };

@@ -113,7 +113,7 @@ export const SwipeView = () => {
 
   return (
     <main
-      className="relative flex items-center justify-center flex-1 p-6 overflow-hidden"
+      className="relative flex items-center justify-center flex-1 p-6"
       ref={swipeViewContainerRef}
     >
       <AnimatePresence>
