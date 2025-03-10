@@ -9,6 +9,7 @@ import LinkIcon from '../../icons/LinkIcon';
 import { motion } from 'framer-motion';
 import { useSettingsContext } from '../../../context/UserSettingsContext';
 import { redditUrls } from '../../../clientConstants/constants';
+import { useSanitizedHtml } from '../../../hooks/useSanitizedHtml';
 import type { OnMotionEvent } from '../../../types/motion/motion';
 
 type SwipeCommentProps = {
@@ -28,9 +29,9 @@ const SwipeComment = ({
   onMotionStart,
 }: SwipeCommentProps) => {
   const { isSwipeMode } = useSettingsContext();
-  const sanitizedHtml = DOMPurify.sanitize(post.data.body_html);
   const postCreatedDate = new Date(post.data.created_utc * 1000);
   const { postPermalink, userProfile } = redditUrls;
+  const sanitizedContent = useSanitizedHtml(post.data.body_html);
 
   return (
     <>
@@ -108,10 +109,9 @@ const SwipeComment = ({
           </div>
         </header>
 
-        <section
-          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-          className="col-span-1 col-start-2 row-start-2 -mt-10 prose"
-        />
+        <section className="col-span-1 col-start-2 row-start-2 -mt-5 prose prose-img:rounded prose-img:max-w-full prose-img:my-2">
+          {sanitizedContent}
+        </section>
       </motion.article>
     </>
   );

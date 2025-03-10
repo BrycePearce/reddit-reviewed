@@ -23,7 +23,7 @@ export const Navbar = () => {
             <div className="form-control">
               <label
                 htmlFor="swipe-mode-toggle"
-                className="gap-2 cursor-pointer label"
+                className={`gap-2 label ${isSwipeMode ? 'cursor-pointer' : ''}`}
               >
                 <span className="text-base font-bold text-base-content">
                   Swipe Mode
